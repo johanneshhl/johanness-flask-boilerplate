@@ -15,7 +15,3 @@ def hello2():
 @app.route("/")
 def hello3():
     return 'hej verden :)'
-
-    
-# Check that an unencrypted password matches one that has
-# previously been hashed

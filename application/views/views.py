@@ -8,6 +8,10 @@ def hello(password):
     testString = bcrypt.generate_password_hash(password)
     return testString
 
+@app.route("/test")
+def hello2():
+    return app.config['SQLALCHEMY_DATABASE_URI']    
+    
 @app.route("/")
 def hello3():
     return 'hej verden :)'

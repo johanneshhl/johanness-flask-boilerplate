@@ -9,5 +9,7 @@ app = Flask(__name__)
 #app.config.from_object('applicationConfig')
 heroku = Heroku(app)
 
-
 from application.views import views
+
+
+app.run()

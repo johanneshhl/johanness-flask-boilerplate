@@ -3,7 +3,6 @@ from flask.ext.bcrypt import Bcrypt
 
 bcrypt = Bcrypt(app)
 
-
 @app.route("/<password>")
 def hello(password):
     testString = bcrypt.generate_password_hash(password)
@@ -13,6 +12,10 @@ def hello(password):
 def hello2():
     return app.config['SQLALCHEMY_DATABASE_URI']    
     
+@app.route("/")
+def hello3():
+    return 'hej verden :)'
+
     
 # Check that an unencrypted password matches one that has
 # previously been hashed

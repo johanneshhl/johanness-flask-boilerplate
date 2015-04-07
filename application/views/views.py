@@ -10,7 +10,7 @@ def hello(password):
 
 @app.route("/test")
 def hello2():
-    return app.config['SQLALCHEMY_DATABASE_URI']    
+    return app.config['DATABASE_URI']
     
 @app.route("/")
 def hello3():

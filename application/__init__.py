@@ -6,7 +6,7 @@ from flask.ext.heroku import Heroku
 
 
 app = Flask(__name__)
-app.config.from_object('applicationConfig')
+#app.config.from_object('applicationConfig')
 heroku = Heroku(app)
 
 

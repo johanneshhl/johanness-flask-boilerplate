@@ -5,7 +5,7 @@ bcrypt = Bcrypt(app)
 
 @app.route("/test/<password>")
 def hello5(password):
-    testString = ('$2a$12$RWxScyVhbTuhHCCpvQUnpeKS77G/.0sqD702T8RFT2U/WvehNE7Lu' = bcrypt.check_password_hash(password))
+    testString = ('$2a$12$RWxScyVhbTuhHCCpvQUnpeKS77G/.0sqD702T8RFT2U/WvehNE7Lu' == bcrypt.check_password_hash(password))
     return testString
 
 

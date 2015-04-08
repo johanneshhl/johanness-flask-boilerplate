@@ -3,6 +3,12 @@ from flask.ext.bcrypt import Bcrypt
 
 bcrypt = Bcrypt(app)
 
+@app.route("/test/<password>")
+def hello5(password):
+    testString = ('$2a$12$RWxScyVhbTuhHCCpvQUnpeKS77G/.0sqD702T8RFT2U/WvehNE7Lu' = bcrypt.check_password_hash(password))
+    return testString
+
+
 @app.route("/<password>")
 def hello(password):
     testString = bcrypt.generate_password_hash(password)

@@ -1,4 +1,4 @@
-from application import app
+from application import app, request, redirect, url_for
 from flask.ext.bcrypt import Bcrypt
 
 bcrypt = Bcrypt(app)
@@ -12,10 +12,13 @@ def hello5(password):
     else:
         return 'False'
 
-@app.route("/<password>")
+@app.route("/ps/<password>")
 def hello(password):
     testString = bcrypt.generate_password_hash(password)
     return testString
+
+
+
 
 @app.route("/test")
 def hello2():
@@ -26,14 +29,18 @@ def hello3():
     return 'hej verden :)'
 
 
-@app.route('/login', methods=['GET', 'POST'])
+
+
+#Login Test koden er = johanneshvilsom
+
+totalyRandomPassword = 'johanneshvilsom'
+
+@app.route('/login', methods=['POST','GET'])
 def login():
-    if request.method == 'POST':
-        session['username'] = request.form['username']
-        return redirect(url_for('index'))
-    return '''
-        <form action="" method="post">
-            <p><input type=text name=username>
-            <p><input type=Psubmit value=Login>
-        </form>
-        '''
+	if request.method == 'POST':
+		if bcrypt.check_password_hash(totalyRandomPassword , request.form['username']):
+			return 'true'
+		else:
+			return 'False'
+	else:
+		return '<form action="" method="post"><p><input type=password name=username><p><input type=submit value=Login></form>'

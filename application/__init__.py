@@ -1,7 +1,7 @@
  #!/usr/bin/python
  # -*- coding: utf-8 -*-
 
-from flask import Flask, request
+from flask import Flask, request, redirect, url_for
 from flask.ext.heroku import Heroku 
 
 

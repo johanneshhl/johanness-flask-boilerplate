@@ -4,11 +4,15 @@
 from flask import Flask, request, redirect, url_for
 from flask.ext.heroku import Heroku 
 from flask.ext.sqlalchemy import SQLAlchemy
+from flask.ext.bcrypt import Bcrypt
 
 
 app = Flask(__name__)
 app.config.from_object('applicationConfig')
+
 db = SQLAlchemy(app)
+bcrypt = Bcrypt(app)
+
 
 from application.database import database
 from application.views import views

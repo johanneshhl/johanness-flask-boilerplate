@@ -24,7 +24,9 @@ def shwoUser():
  	else:
  		return redirect(url_for('login'))
 
-
+@app.route("/test")
+def hello2():
+    return app.config['SQLALCHEMY_DATABASE_URI']
 
 
 

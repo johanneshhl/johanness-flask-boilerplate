@@ -20,7 +20,6 @@ def addUserFromString(name, password):
 	db.session.commit()
 
 
-
 #Username submit test
 def userNameTest(usernameInput):
 	# Tjek om brugernavenet er tomt 

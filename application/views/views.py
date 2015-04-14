@@ -12,7 +12,9 @@ def index():
         return 'Logged in as %s' % escape(session['username'])
     return 'You are not logged in'
 
-
+@app.errorhandler(404)
+def page_not_found(error):
+	return error
 
 @app.route('/showUser')
 def shwoUser():

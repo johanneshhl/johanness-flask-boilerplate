@@ -1,10 +1,11 @@
  #!/usr/bin/python
  # -*- coding: utf-8 -*-
 
-from flask import Flask, request, redirect, url_for
+from flask import Flask, request, redirect, url_for, session, escape
 from flask.ext.heroku import Heroku 
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.bcrypt import Bcrypt
+from datetime import datetime
 
 
 app = Flask(__name__)

@@ -1,4 +1,5 @@
 import os
+
 if not os.environ.has_key('DATABASE_URL'):
 	DEBUG = True
 else:

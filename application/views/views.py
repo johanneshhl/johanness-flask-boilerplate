@@ -14,7 +14,10 @@ def index():
 
 @app.errorhandler(404)
 def page_not_found(error):
-	return 'error'
+	return error
+
+
+
 
 @app.route('/showUser')
 def shwoUser():
@@ -23,6 +26,8 @@ def shwoUser():
  		return user.username + '\n' + user.password
  	else:
  		return redirect(url_for('login'))
+
+
 
 @app.route("/test")
 def hello2():
@@ -41,9 +46,9 @@ def creatUser():
 			session['username'] = request.form['username']
 			return redirect(url_for('index'))
 		else:
-			return userNameTest(request.form['username'])[1] + ' \n ' + '<form action="" method="post"><p><input type=text name=username><p><input type=password name=password><p><input type=submit value=Login></form>' 
+			return userNameTest(request.form['username'])[1] + ' \n ' + '<form action="%s" method="post"><p><input type=text name=username><p><input type=password name=password><p><input type=submit value=Login></form>' % url_for('createUser')
 	else:
-		return '<form action="" method="post"><p><input type=text name=username><p><input type=password name=password><p><input type=submit value="Sign up"></form>' 
+		return '<form action="%s" method="post"><p><input type=text name=username><p><input type=password name=password><p><input type=submit value="Sign up"></form>' % url_for('createUser')
 
 
 
@@ -57,7 +62,7 @@ def login():
 		else:
 			return redirect(url_for('login'))
 	else:
-		return '<form action="" method="post"><p><input type=text name=username><p><input type=password name=password><p><input type=submit value=Login></form>' 
+		return '<form action="%s" method="post"><p><input type=text name=username><p><input type=password name=password><p><input type=submit value=Login></form>' % url_for('login')
 
 
 

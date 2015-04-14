@@ -48,7 +48,7 @@ def creatUser():
 		else:
 			return userNameTest(request.form['username'])[1] + ' \n ' + '<form action="%s" method="post"><p><input type=text name=username><p><input type=password name=password><p><input type=submit value=Login></form>' % url_for('createUser')
 	else:
-		return '<form action="%s" method="post"><p><input type=text name=username><p><input type=password name=password><p><input type=submit value="Sign up"></form>' % url_for('createUser')
+		return '<form action="%s" method="post"><p><input type=text name=username><p><input type=password name=password><p><input type=submit value=Login></form>' % url_for('createUser')
 
 
 

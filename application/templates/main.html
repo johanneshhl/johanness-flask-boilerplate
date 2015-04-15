@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>{{ g['siteName'] }} - {{ g['year'] }}</title>
-</head>
-<body>
-	{{ input_var | safe }}
-</body>
-</html>
+
+{% extends "base.html" %}
+{% block title %}{{ functionName_var }}{% endblock %}
+{% block content %}
+    {{ input_var | safe }}
+{% endblock %}

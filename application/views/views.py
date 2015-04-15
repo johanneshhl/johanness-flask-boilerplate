@@ -12,26 +12,21 @@ def before_request():
 	g.siteName = 'Johannes Flask Boilerplate'
 
 
-
-@app.route('/')
-def index():
-	#cookie login remeber me - 
-    if 'username' in session:
-        return render_template('main.html', input_var=('Logged in as %s' % escape(session['username']))) 
-    return render_template('main.html', input_var='You are not logged in')
-
 @app.errorhandler(404)
 def page_not_found(error):
 	return render_template('main.html', input_var=error)
 
 
-
+@app.route('/')
+def index():
+	#cookie login remeber me - 
+    return render_template('index.html')
 
 @app.route('/showUser')
 def shwoUser():
  	if session['username']:
  		user = User.query.filter_by(username=session['username']).first()
- 		return render_template('main.html', input_var=(user.username + '\n' + user.password))
+ 		return render_template('main.html', functionName_var='Vis bruger', input_var=(user.username + '\n' + user.password))
  	else:
  		return redirect(url_for('login'))
 
@@ -52,11 +47,12 @@ def creatUser():
 		if userNameTest(request.form['username']) == True:
 			addUserFromString(request.form['username'],request.form['password'])
 			session['username'] = request.form['username']
+
 			return redirect(url_for('index'))
 		else:
-			return render_template('main.html', input_var=(userNameTest(request.form['username'])[1] + ' \n ' + '<form action="%s" method="post"><p><input type=text name=username><p><input type=password name=password><p><input type=submit value=Login></form>' % url_for('createUser')))
+			return render_template('main.html', functionName_var='Opret bruger', input_var=(userNameTest(request.form['username'])[1] + ' \n ' + '<form action="%s" method="post"><p><input type=text name=username><p><input type=password name=password><p><input type=submit value=Login></form>' % url_for('createUser')))
 	else:
-		return render_template('main.html', input_var=('<form action="" method="post"><p><input type=text name=username><p><input type=password name=password><p><input type=submit value=Login></form>'))
+		return render_template('main.html', functionName_var='Opret bruger', input_var=('<form action="" method="post"><p><input type=text name=username><p><input type=password name=password><p><input type=submit value=Login></form>'))
 
 
 
@@ -71,7 +67,7 @@ def login():
 		else:
 			return redirect(url_for('login'))
 	else:
-		return render_template('main.html', input_var=('<form action="%s" method="post"><p><input type=text name=username><p><input type=password name=password><p><input type=submit value=Login></form>' % url_for('login')))
+		return render_template('login.html', functionName_var='Login')
 
 
 

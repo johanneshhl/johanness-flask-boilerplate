@@ -11,6 +11,7 @@ from datetime import datetime
 app = Flask(__name__)
 app.config.from_object('applicationConfig')
 
+
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 

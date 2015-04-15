@@ -1,20 +1,28 @@
  #!/usr/bin/python
  # -*- coding: utf-8 -*-
 
-from application import app, request, redirect, escape, session, url_for, db, bcrypt
+from application import app, request, redirect, escape, session, url_for, db, bcrypt, render_template, g
 from application.database.database import User
 from application.functions.functions import *
 
 
+@app.before_request
+def before_request():
+	g.year = datetime.now().year
+	g.siteName = 'Johannes Flask Boilerplate'
+
+
+
 @app.route('/')
 def index():
+	#cookie login remeber me - 
     if 'username' in session:
-        return 'Logged in as %s' % escape(session['username'])
-    return 'You are not logged in lile test :)'
+        return render_template('main.html', input_var=('Logged in as %s' % escape(session['username']))) 
+    return render_template('main.html', input_var='You are not logged in')
 
 @app.errorhandler(404)
 def page_not_found(error):
-	return error
+	return render_template('main.html', input_var=error)
 
 
 
@@ -23,7 +31,7 @@ def page_not_found(error):
 def shwoUser():
  	if session['username']:
  		user = User.query.filter_by(username=session['username']).first()
- 		return user.username + '\n' + user.password
+ 		return render_template('main.html', input_var=(user.username + '\n' + user.password))
  	else:
  		return redirect(url_for('login'))
 
@@ -31,7 +39,7 @@ def shwoUser():
 
 @app.route("/test")
 def hello2():
-    return 'test'
+    return app.config['SQLALCHEMY_DATABASE_URI']
 
 
 
@@ -46,9 +54,9 @@ def creatUser():
 			session['username'] = request.form['username']
 			return redirect(url_for('index'))
 		else:
-			return userNameTest(request.form['username'])[1] + ' \n ' + '<form action="%s" method="post"><p><input type=text name=username><p><input type=password name=password><p><input type=submit value=Login></form>' % url_for('createUser')
+			return render_template('main.html', input_var=(userNameTest(request.form['username'])[1] + ' \n ' + '<form action="%s" method="post"><p><input type=text name=username><p><input type=password name=password><p><input type=submit value=Login></form>' % url_for('createUser')))
 	else:
-		return '<form action="" method="post"><p><input type=text name=username><p><input type=password name=password><p><input type=submit value=Login></form>'
+		return render_template('main.html', input_var=('<form action="" method="post"><p><input type=text name=username><p><input type=password name=password><p><input type=submit value=Login></form>'))
 
 
 
@@ -58,11 +66,12 @@ def login():
 	if request.method == 'POST':
 		if testLogin(request.form['username'], request.form['password']):
 			session['username'] = request.form['username']
+			session.permanent = False
 			return redirect(url_for('index'))
 		else:
 			return redirect(url_for('login'))
 	else:
-		return '<form action="%s" method="post"><p><input type=text name=username><p><input type=password name=password><p><input type=submit value=Login></form>' % url_for('login')
+		return render_template('main.html', input_var=('<form action="%s" method="post"><p><input type=text name=username><p><input type=password name=password><p><input type=submit value=Login></form>' % url_for('login')))
 
 
 

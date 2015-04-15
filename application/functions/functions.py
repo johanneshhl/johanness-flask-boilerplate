@@ -23,7 +23,7 @@ def addUserFromString(name, password):
 def testLogin(name, inPassword):
 	user = User.query.filter_by(username=name).first()
 	if user and bcrypt.check_password_hash(user.password, inPassword):		
-		user.lastLogin = datetime.utcnow()
+		user.lastLogin = datetime.now()
 		db.session.commit()
 		return True
 	else:

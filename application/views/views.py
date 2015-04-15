@@ -31,7 +31,7 @@ def shwoUser():
 
 @app.route("/test")
 def hello2():
-    return app.config['SQLALCHEMY_DATABASE_URI']
+    return 'test'
 
 
 

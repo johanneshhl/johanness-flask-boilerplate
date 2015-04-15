@@ -10,7 +10,7 @@ from application.functions.functions import *
 def index():
     if 'username' in session:
         return 'Logged in as %s' % escape(session['username'])
-    return 'You are not logged in'
+    return 'You are not logged in lile test :)'
 
 @app.errorhandler(404)
 def page_not_found(error):

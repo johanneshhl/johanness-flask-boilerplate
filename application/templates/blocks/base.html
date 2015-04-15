@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include "blocks/header.html" %}
+<body>
+    
+    <div class="container">
+    {% block content %}{% endblock %}
+	{% include "blocks/footer.html" %}
+    </div>
+
+<script type="text/javascript" src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+</body>
+</html>

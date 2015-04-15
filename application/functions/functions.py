@@ -1,8 +1,8 @@
  #!/usr/bin/python
  # -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 from application import app, request, session, redirect, url_for, db, bcrypt, datetime
 from application.database.database import User
-
 
 
 #needle in haystack
@@ -33,11 +33,11 @@ def testLogin(name, inPassword):
 def userNameTest(usernameInput):
 	# Tjek om brugernavenet er tomt 
 	if usernameInput == '' :
-		return [False, 'brugernavenet er tomt']
+		return [False, 'Brugernavenet er tomt']
 
 	#Tjek om brugernavenet indholder mellemrum
 	elif conatins(usernameInput,' ') == True:
-		return [False,'Brugernavenet må ikke indholde mellemrum']
+		return [False, 'Brugernavenet må ikke indholde mellemrum']
 
 	#Tjek om brugernavnet er unikt
 	elif db.session.query(User).filter_by(username=usernameInput).count() != 0:

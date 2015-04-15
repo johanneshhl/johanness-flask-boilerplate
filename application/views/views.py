@@ -4,12 +4,13 @@
 from application import app, request, redirect, escape, session, url_for, db, bcrypt, render_template, g
 from application.database.database import User
 from application.functions.functions import *
-
+import application.views.sessions.sessions
 
 @app.before_request
 def before_request():
 	g.year = datetime.now().year
 	g.siteName = 'Johannes Flask Boilerplate'
+	g.baseUrl = url_for('index')
 
 
 @app.errorhandler(404)
@@ -22,11 +23,21 @@ def index():
 	#cookie login remeber me - 
     return render_template('index.html')
 
+
+@app.route('/showSession')
+def showSession():
+ 	if session['username']:
+ 		return render_template('main.html', functionName_var='Vis bruger')
+ 	else:
+ 		return redirect(url_for('login'))
+
+
+
 @app.route('/showUser')
 def shwoUser():
  	if session['username']:
  		user = User.query.filter_by(username=session['username']).first()
- 		return render_template('main.html', functionName_var='Vis bruger', input_var=(user.username + '\n' + user.password))
+ 		return render_template('main.html', functionName_var='Vis bruger')
  	else:
  		return redirect(url_for('login'))
 
@@ -37,42 +48,3 @@ def hello2():
     return app.config['SQLALCHEMY_DATABASE_URI']
 
 
-
-
-#Lav bruger test
-@app.route('/session/createuser', methods=['POST','GET'])
-def creatUser():
-
-	if request.method == 'POST':
-		if userNameTest(request.form['username']) == True:
-			addUserFromString(request.form['username'],request.form['password'])
-			session['username'] = request.form['username']
-
-			return redirect(url_for('index'))
-		else:
-			return render_template('main.html', functionName_var='Opret bruger', input_var=(userNameTest(request.form['username'])[1] + ' \n ' + '<form action="%s" method="post"><p><input type=text name=username><p><input type=password name=password><p><input type=submit value=Login></form>' % url_for('createUser')))
-	else:
-		return render_template('main.html', functionName_var='Opret bruger', input_var=('<form action="" method="post"><p><input type=text name=username><p><input type=password name=password><p><input type=submit value=Login></form>'))
-
-
-
-#Login fra bruger test
-@app.route('/session/login', methods=['POST','GET'])
-def login():
-	if request.method == 'POST':
-		if testLogin(request.form['username'], request.form['password']):
-			session['username'] = request.form['username']
-			session.permanent = False
-			return redirect(url_for('index'))
-		else:
-			return redirect(url_for('login'))
-	else:
-		return render_template('login.html', functionName_var='Login')
-
-
-
-
-@app.route('/session/logout')
-def logout():
-    session.pop('username', None)
-    return redirect(url_for('index'))

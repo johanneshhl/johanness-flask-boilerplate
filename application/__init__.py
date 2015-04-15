@@ -1,6 +1,5 @@
  #!/usr/bin/python
  # -*- coding: utf-8 -*-
-
 from flask import Flask, request, redirect, url_for, session, escape, render_template, g
 from flask.ext.heroku import Heroku 
 from flask.ext.sqlalchemy import SQLAlchemy

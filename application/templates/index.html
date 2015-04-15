@@ -1,8 +1,8 @@
-{% extends "base.html" %}
+{% extends "blocks/base.html" %}
 {% block title %}Forside{% endblock %}
 {% block content %}
-{% if session['username'] %}
-	<p>{{ session['username'] }} er allrede logget ind</p>
+{% if session %}
+	<p>Vellkommen {{ session['username'] }}</p>
 {% else %}
 	<p>Vellkommen til den fine forside</p>
 {% endif %}

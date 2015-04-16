@@ -4,7 +4,6 @@
 from application import app, request, redirect, escape, session, url_for, db, bcrypt, render_template, g
 from application.database.database import User
 from application.functions.functions import *
-import application.views.sessions.sessions
 
 @app.before_request
 def before_request():

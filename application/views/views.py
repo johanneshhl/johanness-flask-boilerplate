@@ -26,8 +26,8 @@ def index():
 
 @app.route('/showSession')
 def showSession():
- 	if session['username']:
- 		return render_template('main.html', functionName_var='Vis bruger')
+ 	if session:
+ 		return render_template('main.html', input_var=session)
  	else:
  		return redirect(url_for('login'))
 
@@ -48,3 +48,57 @@ def hello2():
     return app.config['SQLALCHEMY_DATABASE_URI']
 
 
+
+
+@app.route('/session/login', methods=['POST','GET'])
+def login():
+	
+	if request.method == 'POST' and request.form['username'] and request.form['password'] and ('username' not in session):
+
+		if testLogin(request.form['username'], request.form['password']):
+			
+			session['username'] = request.form['username']
+
+			if request.form['keepMeLogedIn']:
+				session.permanent = True
+			else:
+				session.permanent = False
+			
+			return redirect(url_for('index'))
+
+		else: 
+			return render_template('login.html')
+	else:
+
+		return render_template('login.html')
+
+
+@app.route('/session/createuser', methods=['POST','GET'])
+def creatUser():
+
+	if (request.method == 'POST') and ('username' not in session):
+		
+		if userNameTest(request.form['username'])[0]:
+
+			addUserFromString(request.form['username'],request.form['password'])
+
+			if request.form['keepMeLogedIn']:
+				session.permanent = True
+			else:
+				session.permanent = False
+
+			session['username'] = request.form['username']
+
+			return redirect(url_for('index'))
+		else:
+			return render_template('createuser.html', userValidate=userNameTest(request.form['username'])), 401
+	else:
+		return render_template('createuser.html')
+
+
+
+@app.route('/session/logout')
+def logout():
+	session.pop('username', None)
+	session.clear() 
+	return redirect(url_for('index'))

@@ -20,29 +20,77 @@ def addUserFromString(name, password):
 	db.session.commit()
 
 
-def testLogin(name, inPassword):
+
+
+
+# login test
+def loginTest(name, inPassword):
+
+	returnBool = False
+	returnString = u''
+
+	#Først Tjek username
 	user = User.query.filter_by(username=name).first()
-	if user and bcrypt.check_password_hash(user.password, inPassword):		
+
+
+
+	if user == None:
+		returnBool = False
+		returnString = u'Brugernavenet findes ikke'
+	
+	elif len(inPassword) <= 1:
+		returnBool = False
+		returnString = u'Kodeordet er tomt'
+
+	elif bcrypt.check_password_hash(user.password, inPassword) != True:
+		returnBool = False
+		returnString = u'Kodeordet er forkert'
+
+	else:
 		user.lastLogin = datetime.now()
 		db.session.commit()
-		return True
-	else:
-		return False
+		returnBool = True
+		returnString = u'None'
 
-#Username submit test
-def userNameTest(usernameInput):
+	return [returnBool, returnString]
+	
+
+
+#Username & password submit test
+def userTest(usernameInput, passwordInput):
+	returnBool = False
+	returnString = u''
+
+	#Først tjeck Username
+
 	# Tjek om brugernavenet er tomt 
 	if usernameInput == '' :
-		return [False, 'Brugernavenet er tomt']
+		returnBool = False
+		returnString = u'Brugernavenet er tomt'
 
 	#Tjek om brugernavenet indholder mellemrum
 	elif conatins(usernameInput,' ') == True:
-		return [False, 'Brugernavenet må ikke indholde mellemrum']
+		returnBool = False
+		returnString = u'Brugernavenet må ikke indholde mellemrum'
 
 	#Tjek om brugernavnet er unikt
 	elif db.session.query(User).filter_by(username=usernameInput).count() != 0:
-		return [False, 'Brugernavenet findes allerede']
+		returnBool = False
+		returnString = u'Brugernavenet findes allerede'
+
+	#så Tjeck passwordet
+	elif passwordInput == '' :
+		returnBool = False
+		returnString = u'Kodeordet er tomt'
+
+	elif len(passwordInput) < 6 :
+		returnBool = False
+		returnString = u'Kodeordet er for kort'
 
 	#ellers retuner Sandt 
 	else:
-		return [True, None]
+		returnBool = True
+		returnString = u'None'
+
+
+	return [returnBool, returnString]

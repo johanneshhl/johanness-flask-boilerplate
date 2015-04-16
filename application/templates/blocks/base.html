@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-{% include "blocks/header.html" %}
+{% block head %}
+<head>
+    <title>{% block title %}{% endblock %} - {{ g['siteName'] }} - </title>
+   	{% include "blocks/header.html" %}
+</head>
+{% endblock %}
 <body>
     
     <div class="container">

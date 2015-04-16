@@ -1,4 +1,4 @@
-{% import "blocks/micros.html" as form %}
+{% import "blocks/micros.html" as micros %}
 {% extends "blocks/base.html" %}
 
 {% block title %}Login{% endblock %}
@@ -6,27 +6,19 @@
 
 {% block content %}
 
+	{{ micros.flashs() }}
 
-{% if session['username'] %}
-	
-	<div class="alert alert-info" role="alert">
-  		<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-  		<span class="sr-only">Fejl:</span>
-  		Du er allrede logget ind som {{ session['username'] }}
-	</div>
-
-{% else %}
 	<form action method="post">
-		{{ form.form_group('username', 'text', 'Brugernavn', 'Indtast brugernavn')}}
-		{{ form.form_group('password', 'password', 'Kodeord', 'Kodeord')}}
+		{{ micros.form_group('username', 'text', 'Brugernavn', 'Indtast brugernavn')}}
+		{{ micros.form_group('password', 'password', 'Kodeord', 'Kodeord')}}
 		<div class="checkbox">
 	    	<label>
-	    	  <input name="keepMeLogedIn" type="checkbox"> Forbliv logget ind
+	    		<input type="hidden" value="0" name="KeepMeLoggedIn" />
+				<input type="checkbox" value="1" name="KeepMeLoggedIn" />Forbliv logget ind
 	    	</label>
 	  	</div>
 
-		<button type="login" class="btn btn-default">Opret bruger</button>
+		<button type="login" class="btn btn-primary">Login</button>
 	</form>
-{% endif %}
 
 {% endblock %}

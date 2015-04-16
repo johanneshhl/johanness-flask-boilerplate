@@ -1,7 +1,7 @@
  #!/usr/bin/python
  # -*- coding: utf-8 -*-
 
-from application import app, request, redirect, escape, session, url_for, db, bcrypt, render_template, g
+from application import app, request, redirect, escape, session, url_for, db, bcrypt, render_template, g, flash
 from application.database.database import User
 from application.functions.functions import *
 
@@ -23,53 +23,62 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/showSession')
-def showSession():
- 	if session:
- 		return render_template('main.html', input_var=session)
- 	else:
- 		return redirect(url_for('login'))
 
 
 
-@app.route('/showUser')
-def shwoUser():
- 	if session['username']:
- 		user = User.query.filter_by(username=session['username']).first()
- 		return render_template('main.html', functionName_var='Vis bruger')
- 	else:
- 		return redirect(url_for('login'))
 
 
 
-@app.route("/test")
-def hello2():
-    return app.config['SQLALCHEMY_DATABASE_URI']
 
 
+
+
+
+
+
+
+#Login system - form input
+#				Username 
+#				Password
+#				KeepMeLoggedIn
 
 
 @app.route('/session/login', methods=['POST','GET'])
 def login():
 	
-	if request.method == 'POST' and request.form['username'] and request.form['password'] and ('username' not in session):
+	if request.method == 'POST' and request.form and ('username' not in session):
+		theLoginTest = loginTest(request.form['username'],request.form['password'])
 
-		if testLogin(request.form['username'], request.form['password']):
-			
+		if theLoginTest[0] == True:
 			session['username'] = request.form['username']
 
-			if request.form['keepMeLogedIn']:
-				session.permanent = True
-			else:
+			if request.form['KeepMeLoggedIn'] < 1:
 				session.permanent = False
-			
+			else:
+				session.permanent = True
+
+			flash('Vellkommen {}'.format(session['username']))
 			return redirect(url_for('index'))
 
 		else: 
+			flash(theLoginTest[1], 'error')
 			return render_template('login.html')
 	else:
+		if 'username' in session:
+			flash('Du er allrede logget ind som {}'.format(session['username']),'info')
+			return redirect(url_for('index'))
+		else:
+			return render_template('login.html')
 
-		return render_template('login.html')
+
+
+
+
+
+#Opret bruger system - form input
+#				Username 
+#				Password
+#				KeepMeLoggedIn
 
 
 @app.route('/session/createuser', methods=['POST','GET'])
@@ -77,27 +86,38 @@ def creatUser():
 
 	if (request.method == 'POST') and ('username' not in session):
 		
-		if userNameTest(request.form['username'])[0]:
-
+		if userTest(request.form['username'],request.form['password'])[0] == True:
 			addUserFromString(request.form['username'],request.form['password'])
-
-			if request.form['keepMeLogedIn']:
-				session.permanent = True
-			else:
-				session.permanent = False
-
 			session['username'] = request.form['username']
 
+			if request.form['KeepMeLoggedIn'] < 1:
+				session.permanent = False
+			else:
+				session.permanent = True
+			flash('Vellkommen {}'.format(session['username']))
+			return redirect(url_for('index'))
+
+		else:
+			flash(userTest(request.form['username'],request.form['password'])[1],'error')
+			return render_template('createuser.html'), 401
+	else:
+		if 'username' in session:
+			flash('Du er allrede logget ind som {}'.format(session['username']),'info')
 			return redirect(url_for('index'))
 		else:
-			return render_template('createuser.html', userValidate=userNameTest(request.form['username'])), 401
-	else:
-		return render_template('createuser.html')
+			return render_template('createuser.html')
 
 
+
+#Log af bruger system - form input
 
 @app.route('/session/logout')
 def logout():
-	session.pop('username', None)
-	session.clear() 
-	return redirect(url_for('index'))
+	if ('username' not in session):
+		flash('Du er ikke logget ind', 'info')
+		return redirect(url_for('login'))
+	else:
+		session.pop('username', None)
+		session.clear() 
+		flash('Du er nu logget ud')
+		return redirect(url_for('index'))

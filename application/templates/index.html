@@ -1,9 +1,13 @@
+{% import "blocks/micros.html" as micros %}
 {% extends "blocks/base.html" %}
+
 {% block title %}Forside{% endblock %}
+
 {% block content %}
+{{ micros.flashs() }}
 {% if session %}
 	<p>Vellkommen {{ session['username'] }}</p>
 {% else %}
-	<p>Vellkommen til den fine forside</p>
+	<p>Vellkommen Gæst</p>
 {% endif %}
 {% endblock %}

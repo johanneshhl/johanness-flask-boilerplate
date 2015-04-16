@@ -73,11 +73,6 @@ def login():
 		else:
 			return render_template('login.html')
 
-
-
-
-
-
 #Opret bruger system - form input
 #				Username 
 #				Password
@@ -103,6 +98,7 @@ def creatUser():
 		else:
 			flash(userTest(request.form['username'],request.form['password'])[1],'error')
 			return render_template('createuser.html'), 401
+	
 	else:
 		if 'username' in session:
 			flash('Du er allrede logget ind som {}'.format(session['username']),'info')

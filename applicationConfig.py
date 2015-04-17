@@ -7,7 +7,7 @@ if 'DYNO' not in os.environ:
 else:
 	SESSION_COOKIE_SECURE = True
 	SESSION_COOKIE_NAME = 'herokuSession'
-	PERMANENT_SESSION_LIFETIME = 31
+	PERMANENT_SESSION_LIFETIME = timedelta(days=365)
 	PREFERRED_URL_SCHEME = 'https'
 	DEBUG = False
 

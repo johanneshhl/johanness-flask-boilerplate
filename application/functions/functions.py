@@ -19,6 +19,9 @@ def addUserFromString(name, password):
 	db.session.add(theUser)
 	db.session.commit()
 
+def replaceHTTP(url):
+	newUrl = url.replace('http','https')
+	return newUrl
 
 
 def setSessionPermanent(toggle):

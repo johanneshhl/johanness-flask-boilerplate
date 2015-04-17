@@ -58,8 +58,8 @@ def login():
 			setSessionPermanent(request.form['KeepMeLoggedIn'])
 
 			"""Brug next url'en hvis brugeren kommer fra en @login_required"""
-			#if 'next' in request.args:
-			#	return redirect('/')
+			if 'next' in request.args:
+				return redirect('/')
 
 			"""Lav Flash velkomst"""
 			flash('Vellkommen {}'.format(session['username']))

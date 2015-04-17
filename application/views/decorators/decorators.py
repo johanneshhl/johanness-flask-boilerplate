@@ -13,7 +13,7 @@ def login_required(f):
     def decorated_function(*args, **kwargs):
     	app.logger.debug(replaceHTTP(request.url))
         if g.user == None:
-            return redirect(url_for('login', next=replaceHTTP(request.url), external=True, scheme="https"))
+            return redirect(url_for('login', next=replaceHTTP(request.url), _external=True, _scheme="https"))
         return f(*args, **kwargs)
     return decorated_function
 

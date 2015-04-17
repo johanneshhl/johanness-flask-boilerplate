@@ -1,4 +1,5 @@
 import os
+from datetime import datetime
 
 if 'DYNO' not in os.environ:
 	DEBUG = True
@@ -7,7 +8,7 @@ if 'DYNO' not in os.environ:
 else:
 	SESSION_COOKIE_SECURE = True
 	SESSION_COOKIE_NAME = 'herokuSession'
-	PERMANENT_SESSION_LIFETIME = timedelta(days=365)
+	PERMANENT_SESSION_LIFETIME = datetime.timedelta(days=365)
 	PREFERRED_URL_SCHEME = 'https'
 	DEBUG = False
 
@@ -20,5 +21,5 @@ if not os.environ.has_key('DATABASE_URL'):
 SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
 
 
-
+del datetime
 del os

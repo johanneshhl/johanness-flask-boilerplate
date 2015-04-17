@@ -15,7 +15,6 @@ UserSite
 
 """
 
-@app.route('/session/user', defaults={'user_id': 0})
 @app.route('/session/user/', defaults={'user_id': 0})
 @app.route('/session/user/<int:user_id>')
 @login_required
@@ -54,7 +53,7 @@ def login():
 			"""Hvis loggin virkede lave en session, med brugernavnet"""
 			session['username'] = request.form['username']
 			g.user = session['username']
-			
+
 			"""Set cookie til permanent hvis bruger har trykket KeepMeLoggedIn"""
 			setSessionPermanent(request.form['KeepMeLoggedIn'])
 
@@ -118,7 +117,7 @@ def creatUser():
 			return render_template('createuser.html'), 401
 	
 	else:
-		if g.user != None:
+		if g.user != None or session['username']:
 			flash('Du er allrede logget ind som {}'.format(g.user),'info')
 			return redirect(url_for('index'))
 		else:

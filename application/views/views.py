@@ -12,12 +12,16 @@ def before_request():
 	g.year = datetime.now().year
 	g.siteName = 'Johannes Flask Boilerplate'
 	g.baseUrl = url_for('index')
-	
-	if 'username' not in session:
-		g.user = None
-	else:
-		g.user = session['username']
 
+	if 'username' in session:
+		user = session['username']
+	else:
+		user = None
+
+	g.user = user
+
+
+	
 
 @app.errorhandler(404)
 def page_not_found(error):

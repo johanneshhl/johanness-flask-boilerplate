@@ -41,4 +41,4 @@ def index():
 @app.route('/secret')
 @login_required
 def denHemmligeSide():
-	return g.user
+	return render_template('secret.html', input_var=g.user)

@@ -27,9 +27,9 @@ def userpage(user_id):
 	user = User.query.filter_by(id=user_id).first()
 
 	if user != None:
-		return user.username + ' - ' + str(user.lastLogin)
+		return render_template('secret.html', input_var=(user.username + ' - ' + str(user.lastLogin)))
 	else:
-		return 'Brugen findes ikke'
+		return render_template('secret.html', input_var='Brugen findes ikke')
 
 
 

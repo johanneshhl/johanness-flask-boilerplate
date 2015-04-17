@@ -14,13 +14,34 @@ UserSite
 
 
 """
-	
+#	
+#@app.route('/session/user/', defaults={'user_id': 0})
+#@app.route('/session/user/<int:user_id>')
+#@login_required
+#def userpage(user_id):
+#
+#	if user_id == 0:	
+#		user = g.user
+#		user_id = User.query.filter_by(username=user).first().id
+#
+#	user = User.query.filter_by(id=user_id).first()
+#
+#	if user != None:
+#		return render_template('secret.html', input_var=(user.username + ' - ' + str(user.lastLogin)))
+#	else:
+#		return render_template('secret.html', input_var='Brugen findes ikke')
+#
+#
+
 @app.route('/session/user')
 @login_required
 def userpage():
 	
 	user = User.query.filter_by(username=g.user).first()
-	return render_template('secret.html', input_var=(user.username + ' - ' + str(user.lastLogin)))
+	if user != None:
+		return render_template('secret.html', input_var=(user.username + ' - ' + str(user.lastLogin)))
+	else:
+		return render_template('secret.html', input_var='Brugen findes ikke')
 	
 
 

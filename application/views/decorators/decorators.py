@@ -6,23 +6,13 @@ from application import Flask, app, request, redirect, escape, session, url_for,
 from application.functions.functions import *
 
 
-'''
 def login_required(f):
     @wraps(f)
 	
     def decorated_function(*args, **kwargs):
+        
         if g.user == None:
-            return redirect(url_for('login', next=replaceHTTP(request.url), _external=True, _scheme='https'))
+            return redirect(url_for('login', next=request.url, _external=True, _scheme=app.config['PREFERRED_URL_SCHEME']))
+
         return f(*args, **kwargs)
     return decorated_function
-'''
-
-
-def login_required(func):
-    @wraps(func)
-    def decorated_view(*args, **kwargs):
-        if g.user != None:
-            return func(*args, **kwargs)
-        return redirect(url_for('login',_external=True, _scheme=app.config['PREFERRED_URL_SCHEME']))
-    return decorated_view
-

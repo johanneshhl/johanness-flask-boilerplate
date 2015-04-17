@@ -20,7 +20,6 @@ def addUserFromString(name, password):
 	db.session.commit()
 
 
-
 def setSessionPermanent(toggle):
 	if toggle < 1:
 		session.permanent = False

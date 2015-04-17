@@ -16,7 +16,7 @@ class User(db.Model):
     def __init__(self, username, password):
         self.username = username
         self.password = password
-        self.created = datetime.now()
+        self.created = datetime.datetime.now()
         self.lastLogin = self.created
 
     def __repr__(self):

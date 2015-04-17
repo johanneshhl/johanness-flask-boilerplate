@@ -9,16 +9,8 @@ from application.functions.functions import *
 from functools import wraps
 
 
-
 @app.before_request
 def before_request():
-
-	requestUrl = request.url
-	https = app.config['PREFERRED_URL_SCHEME'] in requestUrl
-	if https == False:
-		secureUrl = requestUrl.replace('http',app.config['PREFERRED_URL_SCHEME'])
-		return redirect(secureUrl)
-
 	g.year = datetime.now().year
 	g.siteName = 'Johannes\' Flask Boilerplate'
 	g.baseUrl = url_for('index')

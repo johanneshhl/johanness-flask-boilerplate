@@ -19,11 +19,11 @@ def addUserFromString(name, password):
 	db.session.add(theUser)
 	db.session.commit()
 
-def replaceHTTP(url):
-	if conatins(url,'https'):
+def replaceHTTP(url):	
+	if conatins(url, app.config['PREFERRED_URL_SCHEME']):
 		return url
 	else:
-		newUrl = url.replace('http','https')
+		newUrl = url.replace('http', app.config['PREFERRED_URL_SCHEME'])
 		return newUrl
 
 

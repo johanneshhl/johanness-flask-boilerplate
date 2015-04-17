@@ -20,7 +20,6 @@ UserSite
 @login_required
 def userpage(user_id):
 
-
 	if user_id == 0:	
 		user = g.user
 		user_id = User.query.filter_by(username=user).first().id
@@ -62,7 +61,7 @@ def login():
 			
 
 
-				"""Brug next url'en hvis brugeren kommer fra en @login_required"""
+			"""Brug next url'en hvis brugeren kommer fra en @login_required"""
 			if 'next' in request.args:
 				return redirect(request.args['next'])
 			else:
@@ -119,7 +118,7 @@ def creatUser():
 			return render_template('createuser.html'), 401
 	
 	else:
-		if g.user != None or session['username']:
+		if g.user != None or session['username'] != None:
 			flash('Du er allrede logget ind som {}'.format(g.user),'info')
 			return redirect(url_for('index'))
 		else:

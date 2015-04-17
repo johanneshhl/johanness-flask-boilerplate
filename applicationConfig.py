@@ -2,6 +2,8 @@ import os
 
 if not os.environ.has_key('DATABASE_URL'):
 	DEBUG = True
+	PREFERRED_URL_SCHEME = 'http'
+
 else:
 	SESSION_COOKIE_SECURE = True
 	SESSION_COOKIE_NAME = 'herokuSession'

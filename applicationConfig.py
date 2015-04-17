@@ -4,6 +4,7 @@ if not os.environ.has_key('DATABASE_URL'):
 	DEBUG = True
 else:
 	SESSION_COOKIE_SECURE = True
+	SESSION_COOKIE_NAME = 'herokuSession'
 	PERMANENT_SESSION_LIFETIME = 31
 	PREFERRED_URL_SCHEME = 'https'
 	DEBUG = False

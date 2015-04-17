@@ -4,6 +4,7 @@ from flask import Flask, request, redirect, url_for, session, escape, render_tem
 from flask.ext.heroku import Heroku 
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.bcrypt import Bcrypt
+from flask_sslify import SSLify
 from datetime import datetime
 
 
@@ -13,8 +14,10 @@ app.config.from_object('applicationConfig')
 
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
-
-
+import os
+if 'DYNO' in os.environ:
+	sslify = SSLify(app)
+del os
 # log to stderr
 import logging
 from logging import StreamHandler

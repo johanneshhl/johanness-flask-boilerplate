@@ -16,6 +16,7 @@ UserSite
 """
 
 @app.route('/session/user', defaults={'user_id': 0})
+@app.route('/session/user/', defaults={'user_id': 0})
 @app.route('/session/user/<int:user_id>')
 @login_required
 def userpage(user_id):
@@ -45,7 +46,7 @@ def userpage(user_id):
 def login():
 	
 	"""Hvis http metoden er post og brugeren ikke er logget ind"""
-	if request.method == 'POST' and request.form and ('username' not in session):
+	if request.method == 'POST' and request.form and g.user == None:
 		theLoginTest = loginTest(request.form['username'],request.form['password'])
 
 		if theLoginTest[0] == True:
@@ -93,7 +94,7 @@ def login():
 @app.route('/session/createuser', methods=['POST','GET'])
 def creatUser():
 
-	if (request.method == 'POST') and ('username' not in session):
+	if (request.method == 'POST') and g.user == None:
 		
 		if userTest(request.form['username'],request.form['password'])[0] == True:
 			addUserFromString(request.form['username'],request.form['password'])

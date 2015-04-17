@@ -21,14 +21,6 @@ def addUserFromString(name, password):
 
 
 
-def replaceHTTP(url):	
-	if conatins(url, app.config['PREFERRED_URL_SCHEME']):
-		return url
-	else:
-		newUrl = url.replace('http', app.config['PREFERRED_URL_SCHEME'])
-		return newUrl
-
-
 def setSessionPermanent(toggle):
 	if toggle < 1:
 		session.permanent = False

@@ -1,6 +1,6 @@
 import os
 
-if not os.environ.has_key('DATABASE_URL'):
+if 'DYNO' not in os.environ:
 	DEBUG = True
 	PREFERRED_URL_SCHEME = 'http'
 

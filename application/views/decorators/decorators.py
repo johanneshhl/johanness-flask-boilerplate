@@ -9,6 +9,7 @@ from application import app, request, redirect, escape, session, url_for, db, bc
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
+    	app.logger.debug(g.user)
         if g.user == None:
             return redirect(url_for('login', next=request.url, _external=True, _scheme='https'))
         return f(*args, **kwargs)

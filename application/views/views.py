@@ -6,6 +6,8 @@ from application.database.database import User
 from application.views.user.user import *
 from application.views.decorators.decorators import *
 from application.functions.functions import *
+from functools import wraps
+
 
 @app.before_request
 def before_request():

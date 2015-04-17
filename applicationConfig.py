@@ -6,7 +6,7 @@ if 'DYNO' not in os.environ:
 	PREFERRED_URL_SCHEME = 'http'
 	PERMANENT_SESSION_LIFETIME = datetime.timedelta(days=365)
 else:
-	SESSION_COOKIE_PATH = '.jhvilsom.com'
+	SESSION_COOKIE_PATH = 'jhvilsom.com'
 	SESSION_COOKIE_SECURE = True
 	SESSION_COOKIE_NAME = 'herokuSession'
 	PERMANENT_SESSION_LIFETIME = datetime.timedelta(days=365)

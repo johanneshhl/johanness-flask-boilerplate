@@ -53,7 +53,8 @@ def login():
 
 			"""Hvis loggin virkede lave en session, med brugernavnet"""
 			session['username'] = request.form['username']
-
+			g.user = session['username']
+			
 			"""Set cookie til permanent hvis bruger har trykket KeepMeLoggedIn"""
 			setSessionPermanent(request.form['KeepMeLoggedIn'])
 
@@ -99,6 +100,7 @@ def creatUser():
 		if userTest(request.form['username'],request.form['password'])[0] == True:
 			addUserFromString(request.form['username'],request.form['password'])
 			session['username'] = request.form['username']
+			g.user = session['username']
 
 			"""Set cookie til permanent hvis bruger har trykket KeepMeLoggedIn"""
 			setSessionPermanent(request.form['KeepMeLoggedIn'])

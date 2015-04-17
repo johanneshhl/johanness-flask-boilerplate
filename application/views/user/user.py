@@ -22,7 +22,7 @@ def userpage(user_id):
 
 
 	if user_id == 0:	
-		user = session['username']
+		user = g.user
 		user_id = User.query.filter_by(username=user).first().id
 
 	user = User.query.filter_by(id=user_id).first()

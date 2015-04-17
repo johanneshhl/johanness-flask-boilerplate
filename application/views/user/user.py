@@ -22,7 +22,7 @@ def userpage(user_id):
 
 
 	if user_id == 0:	
-		user = g.user
+		user = session['username']
 		user_id = User.query.filter_by(username=user).first().id
 
 	user = User.query.filter_by(id=user_id).first()
@@ -58,8 +58,8 @@ def login():
 			setSessionPermanent(request.form['KeepMeLoggedIn'])
 
 			"""Brug next url'en hvis brugeren kommer fra en @login_required"""
-			if 'next' in request.args:
-				return redirect(request.args['next'])
+			#if 'next' in request.args:
+			#	return redirect('/')
 
 			"""Lav Flash velkomst"""
 			flash('Vellkommen {}'.format(session['username']))

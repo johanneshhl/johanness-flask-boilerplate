@@ -57,15 +57,17 @@ def login():
 			"""Set cookie til permanent hvis bruger har trykket KeepMeLoggedIn"""
 			setSessionPermanent(request.form['KeepMeLoggedIn'])
 
-			"""Brug next url'en hvis brugeren kommer fra en @login_required"""
-			if 'next' in request.args:
-				return redirect('/')
-
 			"""Lav Flash velkomst"""
 			flash('Vellkommen {}'.format(session['username']))
 			
-			"""Gå til forsiden"""		
-			return redirect(url_for('index'))
+
+
+				"""Brug next url'en hvis brugeren kommer fra en @login_required"""
+			if 'next' in request.args:
+				return redirect(request.args['next'])
+			else:
+				"""Gå til forsiden"""		
+				return redirect(url_for('index'))
 
 		else: 
 

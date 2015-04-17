@@ -20,8 +20,11 @@ def addUserFromString(name, password):
 	db.session.commit()
 
 def replaceHTTP(url):
-	newUrl = url.replace('http','https')
-	return newUrl
+	if conatins(url,'https'):
+		return url
+	else:
+		newUrl = url.replace('http','https')
+		return newUrl
 
 
 def setSessionPermanent(toggle):

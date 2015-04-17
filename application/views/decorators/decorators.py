@@ -12,7 +12,7 @@ def login_required(f):
     def decorated_function(*args, **kwargs):
         
         if g.user == None:
-            return redirect(url_for('login', next=request.url, _external=True, _scheme=app.config['PREFERRED_URL_SCHEME']))
+            return redirect(url_for('login', next=replaceHTTP(request.url), _external=True, _scheme=app.config['PREFERRED_URL_SCHEME']))
 
         return f(*args, **kwargs)
     return decorated_function

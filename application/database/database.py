@@ -22,3 +22,17 @@ class User(db.Model):
     def __repr__(self):
         return '<User %r>' % self.username
 
+
+
+class siteInfo(object):
+    siteName = db.Column(db.String(64))
+    siteOwner = db.Column(db.String(128))
+
+
+    def __init__(self, arg):
+        self.siteName = siteName
+        self.siteOwner = siteOwner
+
+    def __repr__(self):
+        return '<siteInfo %r>' % self.siteName
+ 

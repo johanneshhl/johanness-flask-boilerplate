@@ -21,6 +21,11 @@ def addUserFromString(name, password):
 
 
 
+def setSessionPermanent(toggle):
+	if toggle < 1:
+		session.permanent = False
+	else:
+		session.permanent = True
 
 
 # login test

@@ -6,13 +6,7 @@
   		<label for="{{ name }}">{{ label }}</label>	
   	{% endif %}
 
-    <input name="{{ name }}" type="{{ type }}" class="form-control" id="{{ name }}" 
-    {% if type == 'password' %}
-    	value="{{ placeholder }}" 
-    {% else %}
-    	placeholder="{{ placeholder }}"
-    {% endif %}
-    >
+    <input name="{{ name }}" type="{{ type }}" class="form-control" id="{{ name }}" placeholder="{{ placeholder }}">
 
   </div>
 {%- endmacro %}

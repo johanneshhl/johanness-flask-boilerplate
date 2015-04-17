@@ -2,7 +2,7 @@
  # -*- coding: utf-8 -*-
 
 from application import db
-from datetime import datetime
+import datetime
 
 
 class User(db.Model):

@@ -1,9 +1,10 @@
 import os
-from datetime import datetime
+import datetime
 
 if 'DYNO' not in os.environ:
 	DEBUG = True
 	PREFERRED_URL_SCHEME = 'http'
+	PERMANENT_SESSION_LIFETIME = datetime.timedelta(days=365)
 
 else:
 	SESSION_COOKIE_SECURE = True

@@ -63,6 +63,7 @@ def login():
 
 			"""Brug next url'en hvis brugeren kommer fra en @login_required"""
 			if 'next' in request.args:
+				app.logger.debug(request.args['next'])
 				return redirect(request.args['next'])
 			else:
 				"""Gå til forsiden"""		

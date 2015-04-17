@@ -9,8 +9,9 @@ from application.functions.functions import *
 
 def login_required(f):
     @wraps(f)
-    
+	
     def decorated_function(*args, **kwargs):
+    	app.logger.debug(request.url)
         if g.user == None:
             return redirect(url_for('login', next=replaceHTTP(request.url)))
         return f(*args, **kwargs)

@@ -1,0 +1,41 @@
+{% import "blocks/micros.html" as micros %}
+<!DOCTYPE html>
+<html lang="en">
+
+{% block head %}
+	<head>
+		{# Indsæt sidetitel + hjemmeside navn  #}
+	    <title>{% block title %}{% endblock %} - {{ g['siteName'] }} - </title>
+
+	    {# Indsæt metadata  #}
+	   	{% include "blocks/header.html" %}
+	</head>	
+{% endblock %}
+
+
+	<body>
+
+
+		{# Lav menu bar og sæt aktive side  #}
+		{% set active_page = active_page  %}
+		{% include "blocks/nav.html" %}
+
+
+		
+		<div class="container">
+			{# Hent banner functionen  #}	
+			{{ micros.flashs() }}
+
+			{# Hent indehold  #}
+	    	{% block content %}{% endblock %}
+	    </div>
+
+
+	    {# Indsæt footer  #}
+	   	{% include "blocks/footer.html" %}
+
+	   	{# Indsæt javascript  #}
+	   	{% include "./blocks/scripts.html" %}
+	</body>
+
+</html>

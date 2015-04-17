@@ -1,13 +1,9 @@
 {% import "blocks/micros.html" as micros %}
-{% extends "blocks/base.html" %}
+{% extends "blocks/layout.jinja" %}
+
+{% set active_page = "index" %}
 
 {% block title %}Forside{% endblock %}
 
 {% block content %}
-{{ micros.flashs() }}
-{% if session %}
-	<p>Vellkommen {{ session['username'] }}</p>
-{% else %}
-	<p>Vellkommen Gæst</p>
-{% endif %}
 {% endblock %}

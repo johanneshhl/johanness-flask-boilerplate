@@ -118,7 +118,7 @@ def creatUser():
 			return render_template('createuser.html'), 401
 	
 	else:
-		if g.user != None or session['username'] != None:
+		if g.user != None:
 			flash('Du er allrede logget ind som {}'.format(g.user),'info')
 			return redirect(url_for('index'))
 		else:

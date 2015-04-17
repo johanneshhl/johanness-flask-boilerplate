@@ -1,0 +1,4 @@
+	
+{% for href in [('js/jquery.min.js'), ('js/bootstrap.min.js')] -%}
+    <script type="text/javascript" src="{{ url_for('static', filename=href) }}"></script>
+{% endfor %}

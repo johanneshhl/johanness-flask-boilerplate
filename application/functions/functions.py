@@ -19,6 +19,8 @@ def addUserFromString(name, password):
 	db.session.add(theUser)
 	db.session.commit()
 
+
+
 def replaceHTTP(url):	
 	if conatins(url, app.config['PREFERRED_URL_SCHEME']):
 		return url

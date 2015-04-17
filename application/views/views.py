@@ -12,7 +12,7 @@ from functools import wraps
 @app.before_request
 def before_request():
 	g.year = datetime.now().year
-	g.siteName = 'Johannes Flask Boilerplate'
+	g.siteName = 'Johannes\' Flask Boilerplate'
 	g.baseUrl = url_for('index')
 
 	if 'username' in session:

@@ -1,12 +1,10 @@
 {% import "blocks/micros.html" as micros %}
-{% extends "blocks/base.html" %}
+{% extends "blocks/layout.jinja" %}
 
 {% block title %}Login{% endblock %}
 
 
 {% block content %}
-
-	{{ micros.flashs() }}
 
 	<form action method="post">
 		{{ micros.form_group('username', 'text', 'Brugernavn', 'Indtast brugernavn')}}
@@ -22,3 +20,4 @@
 	</form>
 
 {% endblock %}
+

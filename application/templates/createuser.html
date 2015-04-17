@@ -1,11 +1,9 @@
 {% import "blocks/micros.html" as micros %}
-{% extends "blocks/base.html" %}
-{% block title %}Login{% endblock %}
+{% extends "blocks/layout.jinja" %}
+
+{% block title %}Opret Bruger{% endblock %}
+
 {% block content %}
-
-
-	{{ micros.flashs() }}
-
 	<form action method="post">
 		{{ micros.form_group('username', 'text', 'Brugernavn', 'Indtast brugernavn')}}
 		{{ micros.form_group('password', 'password', 'Kodeord', 'Kodeord')}}
@@ -20,6 +18,4 @@
 		<button type="Login" class="btn btn-primary">Opret bruger</button>
 	</form>
 {% endblock %}
-
-
 

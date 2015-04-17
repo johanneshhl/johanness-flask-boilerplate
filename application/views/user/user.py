@@ -43,6 +43,13 @@ def userpage(user_id):
 @app.route('/session/login', methods=['POST','GET'])
 def login():
 	
+
+	"""Brug next url'en hvis brugeren kommer fra en @login_required"""
+	if 'next' in request.args:
+		url = request.args['next']
+	else:
+		url = url_for('index')
+
 	"""Hvis http metoden er post og brugeren ikke er logget ind"""
 	if request.method == 'POST' and request.form and g.user == None:
 		theLoginTest = loginTest(request.form['username'],request.form['password'])
@@ -58,16 +65,9 @@ def login():
 
 			"""Lav Flash velkomst"""
 			flash('Vellkommen {}'.format(session['username']))
-			
-
-
-			"""Brug next url'en hvis brugeren kommer fra en @login_required"""
-			if 'next' in request.args:
-				app.logger.debug(request.args['next'])
-				return redirect(request.args['next'])
-			else:
-				"""Gå til forsiden"""		
-				return redirect(url_for('index'))
+		
+			"""Gå til forsiden"""		
+			return redirect(url)
 
 		else: 
 
@@ -76,11 +76,10 @@ def login():
 			return render_template('login.html')
 	else:
 		if 'next' in request.args:
-			app.logger.debug(request.args['next'])
-			return redirect(request.args['next'])
+			return redirect(url)
 		elif g.user != None:
 			flash('Du er allrede logget ind som {}'.format(g.user),'info')
-			return redirect(url_for('index'))
+			return redirect(url)
 		else:
 			return render_template('login.html')
 

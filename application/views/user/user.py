@@ -75,7 +75,10 @@ def login():
 			flash(theLoginTest[1], 'error')
 			return render_template('login.html')
 	else:
-		if g.user != None:
+		if 'next' in request.args:
+			app.logger.debug(request.args['next'])
+			return redirect(request.args['next'])
+		elif g.user != None:
 			flash('Du er allrede logget ind som {}'.format(g.user),'info')
 			return redirect(url_for('index'))
 		else:

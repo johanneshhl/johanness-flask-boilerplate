@@ -13,11 +13,7 @@ def conatins(input, string):
 		return False
 
 
-def addUserFromString(name, password):
-	hashedpassword = bcrypt.generate_password_hash(password, 7)
-	theUser = User(name,hashedpassword)
-	db.session.add(theUser)
-	db.session.commit()
+
 
 
 
@@ -29,11 +25,62 @@ def replaceHTTP(url):
 		return newUrl
 
 
-def setSessionPermanent(toggle):
-	if toggle < 1:
-		session.permanent = False
+
+
+
+def passwordCheck(password):
+	'''
+
+
+	'''
+
+
+	if password == '' :
+		returnBool = False
+
+	elif len(password) < 6 :
+		returnBool = False
+
 	else:
-		session.permanent = True
+		returnBool = True
+
+	return returnBool
+
+
+
+def userFromUserName(userInput):
+	'''
+	Get user from input
+
+	'''
+	
+	u = User.query.filter_by(username=userInput).first()
+	
+	if u is not None:
+		return u
+	else:
+		return False
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # login test

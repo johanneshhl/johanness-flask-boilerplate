@@ -3,7 +3,7 @@
 
 from application import app, request, redirect, escape, session, url_for, db, bcrypt, render_template, g, flash
 from application.database.database import User
-from application.views.user.user import *
+from application.views.user import *
 from application.views.decorators.decorators import *
 from application.functions.functions import *
 from functools import wraps
@@ -19,6 +19,11 @@ def before_request():
 		user = session['username']
 	else:
 		user = None
+
+	if 'LoggedIn' in session:
+		g.userIsloggedIn = True
+	else:
+		g.userIsloggedIn = False
 
 	g.user = user
 
@@ -41,4 +46,4 @@ def index():
 @app.route('/secret')
 @login_required
 def denHemmligeSide():
-	return render_template('secret.html', input_var=g.user)
+	return render_template('secret.html', input_var=session)

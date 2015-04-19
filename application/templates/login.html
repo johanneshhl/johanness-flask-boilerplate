@@ -7,12 +7,19 @@
 {% block content %}
 
 	<form action method="post">
+
+		<div style="margin:0;padding:0;display:inline">
+			<input name="utf8" type="hidden" value="✓">
+			<input name="authenticity_token" type="hidden" value="{{ setAuthenticationCode | safe }}">
+		</div>
+
 		{{ micros.form_group('username', 'text', 'Brugernavn', 'Indtast brugernavn')}}
 		{{ micros.form_group('password', 'password', 'Kodeord', 'Kodeord')}}
+
 		<div class="checkbox">
 	    	<label>
-	    		<input type="hidden" value="0" name="KeepMeLoggedIn" />
-				<input type="checkbox" value="1" name="KeepMeLoggedIn" />Forbliv logget ind
+	    			<input type="checkbox" name="KeepMeLoggedIn" value="true" type="checkbox" checked="true"/>Forbliv logget ind
+	    			<input name="KeepMeLoggedIn" type="hidden" value="false" />
 	    	</label>
 	  	</div>
 

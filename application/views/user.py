@@ -2,6 +2,7 @@
  # -*- coding: utf-8 -*-
 from application import app, request, redirect, escape, session, url_for, db, bcrypt, render_template, g, flash
 from application.database.database import User
+from application.models.user import *
 from application.views.decorators.decorators import *
 from application.functions.functions import *
 
@@ -15,7 +16,6 @@ UserSite
 
 """
 #	
-#@app.route('/session/user/', defaults={'user_id': 0})
 #@app.route('/session/user/<int:user_id>')
 #@login_required
 #def userpage(user_id):
@@ -55,48 +55,47 @@ def userpage():
 @app.route('/session/login', methods=['POST','GET'])
 def login():
 	
-	"""Brug next url'en hvis brugeren kommer fra en @login_required"""
+
+	'''
+
+		Login view 
+
+
+
+
+
+	'''
+	
 	if 'next' in request.args:
 		returnURL = request.args['next']
 	else:
 		returnURL = url_for('index')
 
 
-	"""Hvis http metoden er post og brugeren ikke er logget ind"""
-	if request.method == 'POST' and request.form and g.user == None:
-		theLoginTest = loginTest(request.form['username'],request.form['password'])
+	if request.method == 'POST' and g.userIsloggedIn == False:
+		loggedIn = tryLogin(request.form['username'], request.form['password'], request.form['KeepMeLoggedIn'], request.form['authenticity_token'])
+		
+		if loggedIn[2] != '':
+			flash(loggedIn[1], loggedIn[2])
+		else:
+			flash(loggedIn[1])
 
-		if theLoginTest[0] == True:
+		if loggedIn[0] == False: 
+			returnURL = url_for('login')
 
-			"""Hvis loggin virkede lave en session, med brugernavnet"""
-			session['username'] = request.form['username']
-			g.user = session['username']
+		return redirect(returnURL)
 
-			"""Set cookie til permanent hvis bruger har trykket KeepMeLoggedIn"""
-			setSessionPermanent(request.form['KeepMeLoggedIn'])
-
-			"""Lav Flash velkomst"""
-			flash('Vellkommen {}'.format(session['username']))
-			
-			"""Gå til forsiden"""		
-			return redirect(returnURL)
-
-		else: 
-
-			"""Hvis fejl i førsøget på at logge ind, vise fejl og prøv igen"""
-			flash(theLoginTest[1], 'error')
-			return render_template('login.html')
 	else:
-		if 'next' in request.args and g.user != None:
-			app.logger.debug(request.args['next'])
+		if 'next' in request.args and g.userIsloggedIn:
 			return redirect(request.args['next'])
-		elif g.user != None:
+
+		elif g.userIsloggedIn:
 			flash('Du er allrede logget ind som {}'.format(g.user),'info')
 			return redirect(returnURL)
+
 		else:
-			return render_template('login.html')
-
-
+			serverAuthenticationCode = bcrypt.generate_password_hash(app.config['SECRET_KEY'], 2)
+			return render_template('login.html', setAuthenticationCode=serverAuthenticationCode)
 
 
 
@@ -109,36 +108,33 @@ def login():
 
 
 @app.route('/session/createuser', methods=['POST','GET'])
-def creatUser():
+def createUser():
 
-	if (request.method == 'POST') and g.user == None:
+	serverAuthenticationCode = bcrypt.generate_password_hash(app.config['SECRET_KEY'], 2)
+	returnURL = url_for('index')
+	
+	if (request.method == 'POST') and g.userIsloggedIn == False:
 		
-		if userTest(request.form['username'],request.form['password'])[0] == True:
-			addUserFromString(request.form['username'],request.form['password'])
-			session['username'] = request.form['username']
-			g.user = session['username']
+		theUser = tryCreateUser(request.form['username'], request.form['password'], request.form['KeepMeLoggedIn'], request.form['authenticity_token'])
 
-			"""Set cookie til permanent hvis bruger har trykket KeepMeLoggedIn"""
-			setSessionPermanent(request.form['KeepMeLoggedIn'])
-
-
-			"""Lav Flash velkomst"""
-			flash('Vellkommen {}'.format(session['username']))
-			
-			"""Gå til forsiden"""		
-			return redirect(url_for('index'))
-
-
+		if theUser[2] != '':
+			flash(theUser[1], theUser[2])
 		else:
-			flash(userTest(request.form['username'],request.form['password'])[1],'error')
-			return render_template('createuser.html'), 401
+			flash(theUser[1])
+
+		if theUser[0] == False: 
+			returnURL = url_for('createUser')
+
+		return redirect(returnURL)
 	
 	else:
+
 		if g.user != None:
 			flash('Du er allrede logget ind som {}'.format(g.user),'info')
 			return redirect(url_for('index'))
 		else:
-			return render_template('createuser.html')
+			serverAuthenticationCode = bcrypt.generate_password_hash(app.config['SECRET_KEY'], 2)
+			return render_template('createuser.html', setAuthenticationCode=serverAuthenticationCode)
 
 
 
@@ -146,7 +142,7 @@ def creatUser():
 
 @app.route('/session/logout')
 def logout():
-	if g.user == None:
+	if g.userIsloggedIn != True:
 		flash('Du er ikke logget ind', 'info')
 		return redirect(url_for('login'))
 	else:

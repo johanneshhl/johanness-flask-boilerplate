@@ -57,14 +57,13 @@ def login():
 	
 
 	'''
-
-		Login view 
-
-
-
+		Her skal kommentaren stå :)
 
 
 	'''
+
+
+
 	
 	if 'next' in request.args:
 		returnURL = request.args['next']
@@ -80,8 +79,11 @@ def login():
 		else:
 			flash(loggedIn[1])
 
+
 		if loggedIn[0] == False: 
-			returnURL = url_for('login')
+
+			serverAuthenticationCode = bcrypt.generate_password_hash(app.config['SECRET_KEY'], 2)
+			return render_template('login.html', formerUsernameInput=request.form['username'], setAuthenticationCode=serverAuthenticationCode)
 
 		return redirect(returnURL)
 
@@ -101,14 +103,16 @@ def login():
 
 
 
-#Opret bruger system - form input
-#				Username 
-#				Password
-#				KeepMeLoggedIn
-
-
 @app.route('/session/createuser', methods=['POST','GET'])
 def createUser():
+
+	'''
+		Her skal kommentaren stå :)
+
+
+	'''
+
+
 
 	serverAuthenticationCode = bcrypt.generate_password_hash(app.config['SECRET_KEY'], 2)
 	returnURL = url_for('index')
@@ -142,6 +146,13 @@ def createUser():
 
 @app.route('/session/logout')
 def logout():
+
+	'''
+		Her skal kommentaren stå :)
+
+
+	'''
+
 	if g.userIsloggedIn != True:
 		flash('Du er ikke logget ind', 'info')
 		return redirect(url_for('login'))

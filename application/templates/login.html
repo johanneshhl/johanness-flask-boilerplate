@@ -12,8 +12,12 @@
 			<input name="utf8" type="hidden" value="✓">
 			<input name="authenticity_token" type="hidden" value="{{ setAuthenticationCode | safe }}">
 		</div>
+		
+		 <div class="form-group">
+		  	<label for="username">Brugernavn</label>	
+		    <input autocapitalize="off" autocorrect="off"  name="username" type="text" class="form-control" id="username" {% if formerUsernameInput != '' %} value="{{ formerUsernameInput }}" {% endif %} placeholder="Indtast brugernavn">
+		  </div>
 
-		{{ micros.form_group('username', 'text', 'Brugernavn', 'Indtast brugernavn')}}
 		{{ micros.form_group('password', 'password', 'Kodeord', 'Kodeord')}}
 
 		<div class="checkbox">

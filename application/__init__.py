@@ -22,6 +22,9 @@ assets = Environment(app)
 js = Bundle('js/jquery.min.js', 'js/main.js', 'js/bootstrap.min.js', filters='jsmin', output='gen/packed.js')
 css = Bundle('css/bootstrap.min.css', 'css/style.css', 'css/bootstrap-theme.min.css', output='gen/packed.css')
 
+#css = Bundle('css/bootstrap.min.css', 'css/style.css', output='gen/packed.css')
+
+
 # Hent de minifiserde filer
 assets.register('js_all', js)
 assets.register('css_all', css)

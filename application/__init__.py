@@ -17,20 +17,14 @@ db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 assets = Environment(app)
 
+
+# Find filer der skal minifierser
 js = Bundle('js/jquery.min.js', 'js/main.js', 'js/bootstrap.min.js', filters='jsmin', output='gen/packed.js')
 css = Bundle('css/bootstrap.min.css', 'css/style.css', 'css/bootstrap-theme.min.css', output='gen/packed.css')
 
+# Hent de minifiserde filer
 assets.register('js_all', js)
 assets.register('css_all', css)
-
-
-
-# log to stderr
-import logging
-from logging import StreamHandler
-file_handler = StreamHandler()
-app.logger.setLevel(logging.DEBUG)  # set the desired logging level here
-app.logger.addHandler(file_handler)
 
 
 

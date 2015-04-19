@@ -38,7 +38,7 @@ def passwordCheck(password):
 	if password == '' :
 		returnBool = False
 
-	elif len(password) < 6 :
+	elif len(password) < 6:
 		returnBool = False
 
 	else:

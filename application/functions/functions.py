@@ -53,8 +53,7 @@ def userFromUserName(userInput):
 	Get user from input
 
 	'''
-	
-	u = User.query.filter_by(username=userInput).first()
+	u = User.query.filter(User.username.ilike(userInput)).first()
 	
 	if u is not None:
 		return u

@@ -64,7 +64,7 @@ def tryLogin(userName, userPassword, remeberMe, authenticateCode):
 		loginUser(u, remeberMe)
 		returnBool = True
 		returnString = 'Logged in as {}!'.format(u.username)
-		returnType = ''
+		returnType = ''	
 	else: 
 		returnBool = False
 		returnString = 'Incorrect username or password.'
@@ -83,7 +83,7 @@ def tryLogin(userName, userPassword, remeberMe, authenticateCode):
 
 def authenticateUser(userObj, inPassword):
 	'''
-		Tjek om bruger obj's kodeord = input koden.
+		Tjek om bruger obj's kodeord = input koden. 
 
 	'''
 	if bcrypt.check_password_hash(userObj.password, inPassword):

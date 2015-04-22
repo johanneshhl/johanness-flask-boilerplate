@@ -15,7 +15,7 @@
 		
 		 <div class="form-group">
 		  	<label for="username">Brugernavn</label>	
-		    <input autocapitalize="off" autocorrect="off"  name="username" type="text" class="form-control" id="username" {% if formerUsernameInput != '' %} value="{{ formerUsernameInput }}" {% endif %} placeholder="Indtast brugernavn">
+		    <input autocapitalize="off" autocorrect="off" autocomplete="name"  name="username" type="text" class="form-control" id="username" {% if formerUsernameInput != '' %} value="{{ formerUsernameInput }}" {% endif %} placeholder="Indtast brugernavn">
 		  </div>
 
 		{{ micros.form_group('password', 'password', 'Kodeord', 'Kodeord')}}

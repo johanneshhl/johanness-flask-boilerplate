@@ -16,33 +16,46 @@ function getUser(input) {
 }
 
 
-$('#username').keyup(function(event) {
-	
-	if ($(this).closest('form').attr('id') === 'createUserForm' != true) { }
-	
-	else {
-	
+function validatePassword(string) {
+	if (string.length <= 6) {
+		return false
+	}else {
+		return true
+	}
+}
 
-	var newResponse = getUser(this.value);
+function validateUser(string) {
+	var newResponse = getUser(string);
 
-	var parentNode = $(this).parent('div');
-	
-	
-	
-		if (newResponse != 'ok'){
+	if (newResponse != 'ok'){
+		return false
+	}else {
+		return true
+	}
+}
+
+
+function validateForm(formElement, functionVar) {
+		
+		
+		var parentNode = formElement.parent('div');
+		
+		if (functionVar != true) {
 			var glyphicon = 'glyphicon-remove';
-			var code = '(error)'
-			var codeClass = 'has-error'
-			var oppositeClass = 'has-success'
-			$(this).closest('form').children('button').attr('disabled','');
-		}
-		else {
+			var code = '(error)';
+			var codeClass = 'has-error';
+			var oppositeClass = 'has-success';
+			formElement.closest('form').children('button').attr('disabled','');
+		}else {
 			var glyphicon = 'glyphicon-ok';
 			var code = '(success)';
-			var codeClass = 'has-success'
-			var oppositeClass = 'has-error'
-			$(this).closest('form').children('button').removeAttr('disabled');
+			var codeClass = 'has-success';
+			var oppositeClass = 'has-error';
+			formElement.closest('form').children('button').removeAttr('disabled');
 		}
+
+
+
 		var nodes = '<span class="glyphicon '+ glyphicon +' form-control-feedback" aria-hidden="true"></span><span id="'+ this.id +'" class="sr-only">'+ code +'</span>';
 		if (parentNode.hasClass('has-feedback') != true){
 			parentNode.addClass('has-feedback');
@@ -53,10 +66,25 @@ $('#username').keyup(function(event) {
 		if (parentNode.hasClass(oppositeClass) == true){
 			parentNode.removeClass(oppositeClass);
 		}
-		$(this).nextAll().remove()
+		formElement.nextAll().remove()
 		parentNode.append(nodes);
-	}
+
+};
+
+
+$("#createUserForm input[type*='password']").keyup(function(event) {
+
+	validateForm($(this), validatePassword(this.value));
+
+
 	
+});
+
+
+$("#createUserForm #username").keyup(function(event) {
+
+	validateForm($(this), validateUser(this.value));
+
 });
 
 

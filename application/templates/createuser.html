@@ -13,10 +13,14 @@
 
 		 <div class="form-group">
 		  	<label for="username">Brugernavn</label>	
-		    <input autocapitalize="off" autocorrect="off"  name="username" type="text" class="form-control" id="username" {% if formerUsernameInput != '' %} value="{{ formerUsernameInput }}" {% endif %} placeholder="Indtast brugernavn">
+		    <input autocapitalize="off" autocorrect="off" name="username" type="text" required class="form-control" id="username" {% if formerUsernameInput != '' %} value="{{ formerUsernameInput }}" {% endif %} placeholder="Indtast brugernavn">
 		  </div>
 
-		  {{ micros.form_group('password', 'password', 'Kodeord', 'Kodeord')}}
+		  	<div class="form-group">
+		 		<label for="userPassword">Kodeord</label>	
+				<input name="userPassword" type="password" data-valid="false" autocomplete="new-password" class="form-control" id="userPassword" placeholder="Kodeord" required>
+			</div>
+		 
 
 		<div class="checkbox">
 	    	<label>

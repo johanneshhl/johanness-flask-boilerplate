@@ -1,12 +1,12 @@
 
-{% macro form_group(name, type='text', label='', placeholder='') -%}
+{% macro form_group(name, type='text', label='', placeholder='', autocomplete='none') -%}
   <div class="form-group">
   	
   	{% if label != '' %}
   		<label for="{{ name }}">{{ label }}</label>	
   	{% endif %}
 
-    <input name="{{ name }}" type="{{ type }}" class="form-control" id="{{ name }}" placeholder="{{ placeholder }}">
+    <input name="{{ name }}" type="{{ type }}" {% if type != 'none' %} autocomplete="{{ autocomplete }}" {% endif %}  class="form-control" id="{{ name }}" placeholder="{{ placeholder }}" required>
 
   </div>
 {%- endmacro %}

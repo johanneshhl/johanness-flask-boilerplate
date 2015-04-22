@@ -22,9 +22,9 @@ UserSite
 @login_required
 def userpage():
 	
-	user = User.query.filter_by(username=g.user).first()
-	if user != None:
-		return render_template('secret.html', input_var=(user.username + ' - ' + str(user.lastLogin)))
+	users = User.query.order_by(User.username)
+	if users != None:
+		return render_template('users.html', users=(users))
 	else:
 		return render_template('secret.html', input_var='Brugen findes ikke')
 	

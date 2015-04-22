@@ -1,0 +1,18 @@
+{% import "blocks/micros.html" as micros %}
+{% extends "blocks/layout.jinja" %}
+
+{% block title %}Login{% endblock %}
+
+
+{% block content %}
+
+	{% if users %}
+	<ul>
+		{% for user in users %}
+		<li>{{ user.username }} - {{ user.password }} - {{ user.lastLogin }}</li>
+		{% endfor %}
+	</ul>
+	{% endif %}
+
+{% endblock %}
+

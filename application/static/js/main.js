@@ -92,6 +92,4 @@ $("#createUserForm #username").keyup(function(event) {
 
 
 
-$(document).ready(function($) {
 
-});

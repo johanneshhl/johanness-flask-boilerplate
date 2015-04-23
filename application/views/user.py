@@ -123,7 +123,7 @@ def createUser():
 	
 	if (request.method == 'POST') and g.userIsloggedIn == False:
 		
-		theUser = tryCreateUser(request.form['username'], request.form['password'], request.form['KeepMeLoggedIn'], request.form['authenticity_token'])
+		theUser = tryCreateUser(request.form['username'], request.form['userPassword'], request.form['KeepMeLoggedIn'], request.form['authenticity_token'])
 
 		if theUser[2] != '':
 			flash(theUser[1], theUser[2])

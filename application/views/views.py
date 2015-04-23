@@ -42,6 +42,11 @@ def index():
 
 
 
+@app.route('/cookies')
+def cookies():
+	#cookie login remeber me - 
+    return render_template('cookies.html')
+
 
 @app.route('/secret')
 @login_required

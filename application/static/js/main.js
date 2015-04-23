@@ -90,6 +90,23 @@ $("#createUserForm #username").keyup(function(event) {
 
 
 
+function toggleKeepLogin() {
+	if (window.doNotTrak != '0') {
+		$("input[name~='KeepMeLoggedIn']").not("*[type~='hidden']").prop({checked: false})
+	}else{
+		return 'test';
+	}
+}
 
 
+
+
+
+
+
+
+$(document).ready(function($) {
+	setCookieAlert();
+	toggleKeepLogin();
+});
 

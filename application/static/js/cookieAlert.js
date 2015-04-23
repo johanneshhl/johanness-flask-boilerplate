@@ -2,13 +2,6 @@
 
 
 
-$(document).ready(function($) {
-
-	setCookieAlert()
-
-});
-
-
 
 var dropCookie = true;                      
 var cookieDuration = 14;                    
@@ -23,7 +16,9 @@ function setCookieAlert() {
 		theCookieElement.setAttribute('id','cookieAlert');
 		theCookieElement.setAttribute('class', 'cookie-notice alert-warning alert-dismissible');
 		theCookieElement.setAttribute('role', 'alert');
-		theCookieElement.innerHTML = '<a type="button" onclick="removeMe();" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>Denne side bruger cookies, Nullam id dolor id nibh ultricies vehicula ut id elit.';
+		var siteName = 'Johannes\' Flask Boilerplate'
+		var cookieTekst = 'Denne side anvender cookies til indsamling af indstillinger og statistikker. Læs mere <strong><a class="alert-link" href="/cookies" title="' + siteName +'\'s cookieside"> om vores cookies.</a></strong>'
+		theCookieElement.innerHTML = '<a type="button" onclick="removeMe();" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>'+cookieTekst;
 
 		$(theBodyTag).append(theCookieElement);
 	}

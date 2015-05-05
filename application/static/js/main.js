@@ -122,7 +122,6 @@ $("[data-function*='showUploadFileModal']").click(function(event) {
 	$('#uploadModal').modal('show')
 
 
-
 	$("#uploadModal").on('hidden.bs.modal', function (e) {
 		$(this).remove()
 	});

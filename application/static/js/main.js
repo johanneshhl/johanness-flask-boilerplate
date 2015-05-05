@@ -1,7 +1,3 @@
-'use strict';
-
-
-
 
 
 function getUser(input) {
@@ -73,11 +69,7 @@ function validateForm(formElement, functionVar) {
 
 
 $("#createUserForm input[type*='password']").keyup(function(event) {
-
 	validateForm($(this), validatePassword(this.value));
-
-
-	
 });
 
 
@@ -91,7 +83,7 @@ $("#createUserForm #username").keyup(function(event) {
 
 
 function toggleKeepLogin() {
-	if (window.doNotTrak != '0') {
+	if (window.doNotTrak != "0") {
 		$("input[name~='KeepMeLoggedIn']").not("*[type~='hidden']").prop({checked: false})
 	}else{
 		return 'test';
@@ -101,12 +93,43 @@ function toggleKeepLogin() {
 
 
 
+$("[data-function*='showUploadFileModal']").click(function(event) {
+	
+	var modal = ''+
+	'<div id="uploadModal" class="modal fade" data-show="true">'+
+	  '<div class="modal-dialog">'+
+	   '<div class="modal-content">'+
+	      '<div class="modal-header">'+
+	        '<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+
+	        '<h4 class="modal-title">Modal title</h4>'+
+	      '</div>'+
+	      '<div class="modal-body">'+
+	        '<p>One fine body&hellip;</p>'+
+	      '</div>'+
+	      '<div class="modal-footer">'+
+	        '<button type="button" class="btn btn-default" data-dismiss="modal" >Close</button>'+
+	        '<button type="button" class="btn btn-primary">Save changes</button>'+
+	      '</div>'+
+	    '</div>'+
+	  '</div>'+
+	'</div>'+
+	'';
 
 
 
 
-$(document).ready(function($) {
-	setCookieAlert();
-	toggleKeepLogin();
+	$('body').prepend(modal);
+	$('#uploadModal').modal('show')
+
+
+
+	$("#uploadModal").on('hidden.bs.modal', function (e) {
+		$(this).remove()
+	});
+
+
 });
+
+
+
 

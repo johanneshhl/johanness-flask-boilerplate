@@ -4,6 +4,7 @@
 from application import app, request, redirect, escape, session, url_for, db, bcrypt, render_template, g, flash
 from application.database.database import User
 from application.views.user import *
+from application.views.upload import *
 from application.views.decorators.decorators import *
 from application.functions.functions import *
 from functools import wraps
@@ -38,8 +39,10 @@ def page_not_found(error):
 @app.route('/')
 def index():
 	#cookie login remeber me - 
-    return render_template('index.html')
-
+	if g.userIsloggedIn:
+		return render_template('dashboard.html')
+	else:
+		return render_template('index.html')
 
 
 @app.route('/cookies')

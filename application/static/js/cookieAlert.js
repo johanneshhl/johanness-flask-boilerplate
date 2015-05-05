@@ -1,7 +1,3 @@
-'use strict';
-
-
-
 
 var dropCookie = true;                      
 var cookieDuration = 14;                    
@@ -24,11 +20,16 @@ function setCookieAlert() {
 	}
 };
 function createCookie(){
-	document.cookie = 'cookiebanner-accepted=true'
+	if (window.doNotTrak != "1"){
+		document.cookie = 'cookiebanner-accepted=true';
+	}
+
 }
 function removeMe() {
 	createCookie()
 	var element = document.getElementById('cookieAlert');
 	element.parentNode.removeChild(element);
 };
+
+
 

@@ -8,11 +8,28 @@
 {% block content %}
 
 	{% if users %}
-	<ul>
+	<div class="table-responsive">
+	<table class="table">
+	<thead>
+		<tr>
+			<th>id</th>
+			<th>Username</th>
+			<th>Password</th>
+			<th>Last Login</th>
+		</tr>
+	</thead>
+	<tbody>
 		{% for user in users %}
-		<li>{{ user.username }} - {{ user.password }} - {{ user.lastLogin }}</li>
+		<tr>
+			<td>{{ user.id }}</td>
+			<td>{{ user.username }}</td>
+			<td>{{ user.password }}</td>
+			<td>{{ user.lastLogin }}</td>
+		</tr>
 		{% endfor %}
-	</ul>
+	</tbody>
+	</table>
+	</div>
 	{% endif %}
 
 {% endblock %}

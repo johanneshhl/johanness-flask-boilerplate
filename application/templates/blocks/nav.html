@@ -16,6 +16,7 @@
 			('/', 'index', 'Forside'),
 			('/session/user', 'users', 'Bruger'),
 			('/secret', 'secret', 'Hemmelig'),
+			('/session/upload', 'upload', 'Upload'),
 			] -%}
 			
 			{% set active_page = active_page  -%}
@@ -31,9 +32,9 @@
 				<a class="btn btn-default navbar-btn" href="/session/logout" role="button">Log af</a>
 			</div>
 			{% else %}
-			<div class="btn-group navbar-right" role="group" aria-label="login eller opret bruger">
+			<div class="btn-group navbar-right">
+				<a class="btn btn-default navbar-btn" href="/session/createuser" role="button">Sign up</a>
 				<a class="btn btn-default navbar-btn" href="/session/login" role="button">Login</a>
-				<a class="btn btn-default navbar-btn" href="/session/createuser" role="button">Opret bruger</a>
 			</div>
 			{% endif %}
 		</div>

@@ -8,9 +8,28 @@ html {
 body {
   /* Margin bottom by footer height */
 	margin-bottom: 120px;
-	padding-top: 70px;
+	padding-top: 50px;
 }
 
+#mainContainer {
+  padding-top: 20px;
+
+}
+
+.alertOverlay {
+  position: absolute;
+  z-index: 40;
+  top: 60px;
+  display:table-cell;
+  width: 100%;
+}
+.alertOverlay * {
+  margin-left:auto;
+  margin-right:auto;
+}
+nav {
+  margin-bottom: 0;
+}
 
 .footer {
   position: absolute;
@@ -30,7 +49,9 @@ body {
   padding: 15px;
   border: 1px solid transparent;
   padding-right: 35px;
+}
 
-  
 
+.jumbotron {
+  min-height: 50vh;
 }

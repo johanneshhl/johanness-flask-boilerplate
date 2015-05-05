@@ -22,7 +22,7 @@ UserSite
 @login_required
 def userpage():
 	
-	users = User.query.order_by(User.username)
+	users = User.query.order_by(User.id)
 	if users != None:
 		return render_template('users.html', users=(users))
 	else:
@@ -106,7 +106,6 @@ def checkuser():
 
 
 
-
 @app.route('/session/createuser', methods=['POST','GET'])
 def createUser():
 
@@ -117,12 +116,16 @@ def createUser():
 	'''
 
 
-
 	serverAuthenticationCode = bcrypt.generate_password_hash(app.config['SECRET_KEY'], 2)
 	returnURL = url_for('index')
-	
-	if (request.method == 'POST') and g.userIsloggedIn == False:
-		
+
+
+	if (request.method == 'POST') and request.form['fromFrontPage'] == 'true' and g.userIsloggedIn == False:
+		serverAuthenticationCode = bcrypt.generate_password_hash(app.config['SECRET_KEY'], 2)
+		return render_template('createuser.html',formerUsernameInput=request.form['username'], formerPasswordInput=request.form['userPassword'], setAuthenticationCode=serverAuthenticationCode)
+
+
+	elif (request.method == 'POST') and g.userIsloggedIn == False:
 		theUser = tryCreateUser(request.form['username'], request.form['userPassword'], request.form['KeepMeLoggedIn'], request.form['authenticity_token'])
 
 		if theUser[2] != '':
@@ -133,7 +136,6 @@ def createUser():
 		if theUser[0] == False: 
 			serverAuthenticationCode = bcrypt.generate_password_hash(app.config['SECRET_KEY'], 2)
 			return render_template('createuser.html',formerUsernameInput=request.form['username'], setAuthenticationCode=serverAuthenticationCode)
-
 		return redirect(returnURL)
 	
 	else:
@@ -141,6 +143,7 @@ def createUser():
 		if g.user != None:
 			flash('Du er allrede logget ind som {}'.format(g.user),'info')
 			return redirect(url_for('index'))
+			
 		else:
 			serverAuthenticationCode = bcrypt.generate_password_hash(app.config['SECRET_KEY'], 2)
 			return render_template('createuser.html', setAuthenticationCode=serverAuthenticationCode)

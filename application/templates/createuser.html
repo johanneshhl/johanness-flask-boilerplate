@@ -9,6 +9,7 @@
 		<div style="margin:0;padding:0;display:inline">
 			<input name="utf8" type="hidden" value="✓">
 			<input name="authenticity_token" type="hidden" value="{{ setAuthenticationCode | safe }}">
+			<input name="fromFrontPage" type="hidden" value="false">
 		</div>
 
 		 <div class="form-group">
@@ -18,13 +19,13 @@
 
 		  	<div class="form-group">
 		 		<label for="userPassword">Kodeord</label>	
-				<input name="userPassword" type="password" data-valid="false" autocomplete="new-password" class="form-control" id="userPassword" placeholder="Kodeord" required>
+				<input name="userPassword" type="password" data-valid="false" autocomplete="new-password" class="form-control" id="userPassword" {% if formerUsernameInput != '' %} value="{{ formerPasswordInput }}" {% endif %} placeholder="Kodeord" required>
 			</div>
 		 
 
 		<div class="checkbox">
 	    	<label>
-	    			<input type="checkbox" name="KeepMeLoggedIn" value="true" type="checkbox" defaultChecked="true"/>Forbliv logget ind
+	    			<input type="checkbox" name="KeepMeLoggedIn" value="true" type="checkbox" checked="true"/>Forbliv logget ind
 	    			<input name="KeepMeLoggedIn" type="hidden" value="false" />
 	    	</label>
 	  	</div>

@@ -36,3 +36,18 @@ class siteInfo(object):
     def __repr__(self):
         return '<siteInfo %r>' % self.siteName
  
+
+
+class file(object):
+    id = db.Column(db.Integer, primary_key=True)
+    fileName = db.Column(db.String(120))
+    filePath = db.Column(db.String(160))
+    created = db.Column(db.DateTime)
+
+    def __init__(self, fileName, filePath):
+        self.fileName = fileName
+        self.filePath = filePath
+        self.created = datetime.datetime.now()
+
+    def __repr__(self):
+        return '<file %r>' % self.siteName

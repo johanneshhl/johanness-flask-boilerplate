@@ -17,17 +17,22 @@
 
 
 		{# Lav menu bar og sæt aktive side  #}
-		{% set active_page = active_page  %}
 		{% include "blocks/nav.html" %}
-
-
 		
-		<div class="container">
+	{{ micros.flashs() }}	
+		
+
+		{% set active_page = active_page  %}
+
+		{% block hero %}
+		{% endblock %}
+
 			{# Hent banner functionen  #}	
-			{{ micros.flashs() }}
 
 			
+	    <div id="mainContainer" class="container">
 	    	{% block content %}{% endblock %}
+
 	    </div>
 
 

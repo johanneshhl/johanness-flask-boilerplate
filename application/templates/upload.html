@@ -1,0 +1,17 @@
+{% import "blocks/micros.html" as micros %}
+{% extends "blocks/layout.jinja" %}
+
+{% block title %}Upload{% endblock %}
+{% set active_page = "upload" %}
+
+
+{% block content %}
+	<div class="row">
+	  <div class="col-md-12">
+	  		<button class="btn btn-default" data-function="showUploadFileModal">Vælg fil</button>
+	  </div>
+	</div>
+	
+
+
+{% endblock %}

@@ -18,6 +18,10 @@ else:
 	PREFERRED_URL_SCHEME = 'https'
 	DEBUG = False
 
+
+UPLOAD_FOLDER = 'static/assets'
+
+
 SECRET_KEY = '\xb2\xcd]9\xa6\xad\xaf\xc6\xb1NSz\xdbT\x044\x19\xfac\xf7y\xef\x18\x97'
 
 #set up localhost usage

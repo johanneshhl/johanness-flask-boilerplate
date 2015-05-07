@@ -38,7 +38,7 @@ class siteInfo(object):
  
 
 
-class file(object):
+class File(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     fileName = db.Column(db.String(120))
     filePath = db.Column(db.String(160))
@@ -48,6 +48,5 @@ class file(object):
         self.fileName = fileName
         self.filePath = filePath
         self.created = datetime.datetime.now()
-
     def __repr__(self):
-        return '<file %r>' % self.siteName
+        return '%r' % self.id

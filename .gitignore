@@ -6,3 +6,4 @@ venv
 *.egg-info
 /application/static/gen/*
 /application/static/.webassets-cache
+/applicatoin/static/assets/*

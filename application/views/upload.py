@@ -38,3 +38,13 @@ def downloadFile(fileId):
 	strIO.write(file.fileBlob)
 	strIO.seek(0)
 	return send_file(strIO, as_attachment=True, attachment_filename=file.fileName.encode("ascii","ignore"), mimetype='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+
+
+
+@app.route('/session/download_raw/<int:fileId>')
+@login_required
+def downloadFile2(fileId):
+
+	file = File.query.filter(File.id.ilike(fileId)).first()
+
+	return file.fileBlob

@@ -1,7 +1,7 @@
  #!/usr/bin/python
  # -*- coding: utf-8 -*-
 from application import app, abort, request, redirect, escape, session, url_for, db, bcrypt, render_template, g, flash
-from application.database.database import User
+from application.database.database import File
 from application.models.user import *
 from application.views.decorators.decorators import *
 from application.functions.functions import *
@@ -22,7 +22,7 @@ UserSite
 @login_required
 def userpage():
 	
-	users = User.query.order_by(User.id)
+	users = File.query.order_by(File.id)
 	if users != None:
 		return render_template('users.html', users=(users))
 	else:

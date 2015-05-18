@@ -43,5 +43,5 @@ def downloadFile(fileId):
 def downloadFile2(fileId):
 
 	file = File.query.filter(File.id.ilike(fileId)).first()
-	return file.fileName + '\n' + str(file.created)
+	return file.fileName
 	#return file.fileBlob

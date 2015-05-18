@@ -26,7 +26,8 @@ def userpage():
 	if users != None:
 		return render_template('users.html', users=(users))
 	else:
-		return render_template('secret.html', input_var='Brugen findes ikke')
+		return render_template('secret.html', input_var='Brugen findes ikke').encode( "utf-8" )
+
 	
 
 

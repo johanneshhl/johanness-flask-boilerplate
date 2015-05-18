@@ -7,17 +7,15 @@ from application.database.database import File
 import datetime
 
 
-def tryCreateFile(orgFileName, fileUrl):
+def tryCreateFile(orgFileName, fileBlob):
 
 	'''
 		create New File 
 
 	'''
-	theFile = File(orgFileName, fileUrl)
-	app.logger.debug(orgFileName + '\n' + fileUrl)
+	theFile = File(orgFileName, fileBlob)
 	db.session.add(theFile)
 	db.session.commit()
-	returnID = File.query.filter(File.filePath.ilike(fileUrl)).first()
 
-	return str(returnID.id)
+	return str(theFile)
 

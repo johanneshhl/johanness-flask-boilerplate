@@ -41,12 +41,12 @@ class siteInfo(object):
 class File(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     fileName = db.Column(db.String(120))
-    filePath = db.Column(db.String(160))
+    fileBlob = db.Column(db.LargeBinary)    
     created = db.Column(db.DateTime)
 
-    def __init__(self, fileName, filePath):
+    def __init__(self, fileName, fileBlob):
         self.fileName = fileName
-        self.filePath = filePath
+        self.fileBlob = fileBlob
         self.created = datetime.datetime.now()
     def __repr__(self):
         return '%r' % self.id

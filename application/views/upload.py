@@ -12,8 +12,6 @@ import io
 import StringIO
 
 
-
-
 @app.route('/session/upload', methods=['POST','GET'])
 @login_required
 def uploadFile():
@@ -42,9 +40,8 @@ def downloadFile(fileId):
 
 
 @app.route('/session/download_raw/<int:fileId>')
-@login_required
 def downloadFile2(fileId):
 
 	file = File.query.filter(File.id.ilike(fileId)).first()
-
-	return file.fileBlob
+	return file.fileName + '\n' + str(file.created)
+	#return file.fileBlob

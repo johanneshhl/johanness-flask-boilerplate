@@ -143,7 +143,6 @@ $("[data-function*='showUploadFileModal']").click(function(event) {
 	evt.stopPropagation();
 	evt.preventDefault();
 	var files = evt.dataTransfer.files;
-	console.log('test')
 	document.getElementById('selectedFile').files = files;
   }
 
@@ -186,7 +185,7 @@ $("[data-function*='showUploadFileModal']").click(function(event) {
 				}).done(function(data){
 					console.log(data)
 				  $('#uploadModal .modal-body').html('<p><b>Upload success : </b><code>'+ docxTitle +'</code></p>');
-				  $('#uploadModal .modal-footer').prepend('<div class="pull-left"><a class="btn btn-default" href="/session/download/'+data+'" role="button">Download</a></div>')
+				  $('#uploadModal .modal-footer').prepend('<div class="pull-left"><a class="btn btn-default" href="/session/download_raw/'+data+'" role="button">Download</a></div>')
 				}).fail(function(){
 					console.log(data)
 				  $('#uploadModal .modal-body').html('<p><b>Upload Faild : </b><code>'+ docxTitle +'</code></p>');

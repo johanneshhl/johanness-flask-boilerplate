@@ -2,6 +2,7 @@
  # -*- coding: utf-8 -*-
 from application import app, send_file, abort, request, redirect, escape, session, url_for, db, bcrypt, render_template, g, flash
 from application.models.file import *
+from application.models.docx import *
 from application.database.database import File
 from application.views.decorators.decorators import *
 from application.functions.functions import *
@@ -36,3 +37,17 @@ def downloadFile(fileId):
 	strIO.write(file.fileBlob)
 	strIO.seek(0)
 	return send_file(strIO, as_attachment=True, attachment_filename=file.fileName.encode("ascii","ignore"), mimetype='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+
+
+
+@app.route('/session/download_raw/<int:fileId>')
+def downloadFile2(fileId):
+	import zipfile
+	file = File.query.filter_by(id=fileId).first()
+	strIO = StringIO.StringIO()
+	strIO.write(file.fileBlob)
+	strIO.seek(0)
+
+	zf = zipfile.ZipFile(strIO)
+	docxFile = wordXML(zf.read('word/document.xml'))
+	return docxFile.readOutLoud()

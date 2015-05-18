@@ -19,7 +19,7 @@ def uploadFile():
 
 	if request.method == 'POST':
 		file = request.files['file']
-
+		app.logger.debug(file)
 		if file:
 
 			filename = base64.urlsafe_b64encode(os.urandom(30))

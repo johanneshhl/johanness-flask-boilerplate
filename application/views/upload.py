@@ -31,19 +31,8 @@ def uploadFile():
 @login_required
 def downloadFile(fileId):
 
-	file = File.query.filter(File.id.ilike(fileId)).first()
+	file = File.query.filter_by(id=fileId).first()
 	strIO = StringIO.StringIO()
 	strIO.write(file.fileBlob)
 	strIO.seek(0)
 	return send_file(strIO, as_attachment=True, attachment_filename=file.fileName.encode("ascii","ignore"), mimetype='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
-
-
-
-@app.route('/session/download_raw/<int:fileId>')
-def downloadFile2(fileId):
-
-	#file = File.query.filter(File.id.ilike(fileId)).first()
-	file = File.query.filter_by(id=fileId).first()
-	#users = File.query.order_by(File.id)
-	return render_template('secret.html', input_var=file.fileName)
-	#return file.fileBlob

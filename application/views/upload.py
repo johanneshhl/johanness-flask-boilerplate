@@ -43,5 +43,6 @@ def downloadFile(fileId):
 def downloadFile2(fileId):
 
 	file = File.query.filter(File.id.ilike(fileId)).first()
+	#users = File.query.order_by(File.id)
 	return file.fileName
 	#return file.fileBlob
